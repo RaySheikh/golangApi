@@ -1,0 +1,50 @@
+basePath: /api/v1
+definitions:
+  models.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8082
+info:
+  contact: {}
+  description: An api to communicate with AI.
+  title: Golang Open AI api
+  version: "1.0"
+paths:
+  /auth/generatetoken:
+    post:
+      description: Responds with a JWT
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Generate JWT
+  /user/users:
+    get:
+      description: Responds with a list of all users as JSON
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get users array
+      tags:
+      - users
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: API_TOKEN
+    type: apiKey
+swagger: "2.0"
